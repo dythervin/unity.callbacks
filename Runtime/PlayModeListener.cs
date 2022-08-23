@@ -49,6 +49,9 @@ namespace Dythervin.Callbacks
             GameStartListeners.Lock(true);
             foreach (IPlayModeListener playModeListener in GameStartListeners)
             {
+                if (playModeListener is UnityEngine.Object obj && obj == null)
+                    continue;
+
                 try
                 {
                     playModeListener.OnEnterPlayMode();
@@ -66,13 +69,16 @@ namespace Dythervin.Callbacks
             GameStartListeners.Lock(false);
         }
 
-        // ReSharper disable Unity.PerformanceAnalysis
-        private static void Process(IPlayModeListener playModeListener) { }
-
-        public static void TryEnterPlayMode<T>(this T playModeListener, bool calledCheck = true)
+        public static void PlayModeUnsubscribe<T>(this T playModeListener)
             where T : class, IPlayModeListener
         {
-            if (ApplicationExt.IsQuitting || calledCheck && GameStartListenersDone.Contains(playModeListener))
+            GameStartListeners.Remove(playModeListener);
+        }
+
+        public static void PlayModeSubscribe<T>(this T playModeListener)
+            where T : class, IPlayModeListener
+        {
+            if (ApplicationExt.IsQuitting || GameStartListenersDone.Contains(playModeListener))
                 return;
 
             if (ApplicationExt.IsPlaying)
