@@ -39,30 +39,31 @@ namespace Dythervin.Callbacks
 
         private static void Enter()
         {
-            Process();
+            while (GameStartListeners.Count > 0)
+            {
+                Process();
+            }
 
             Updatable.enabled = false;
         }
 
         private static void Process()
         {
-            GameStartListeners.Lock(true);
+            GameStartListeners.Lock();
             foreach (IPlayModeListener playModeListener in GameStartListeners)
             {
-                if (playModeListener is UnityEngine.Object obj && obj == null)
+                if (GameStartListeners.ToRemove(playModeListener) || playModeListener is UnityEngine.Object obj && obj == null)
                     continue;
 
                 try
                 {
                     playModeListener.OnEnterPlayMode();
+                    GameStartListeners.Remove(playModeListener);
+                    GameStartListenersDone.Add(playModeListener);
                 }
                 catch (Exception e)
                 {
                     Debug.LogError($"Enter play mode: {e}");
-                }
-                finally
-                {
-                    GameStartListenersDone.Add(playModeListener);
                 }
             }
 
@@ -86,6 +87,7 @@ namespace Dythervin.Callbacks
                 if (!playModeListener.MainThreadOnly || ThreadExt.IsMain)
                 {
                     playModeListener.OnEnterPlayMode();
+                    GameStartListenersDone.Add(playModeListener);
                 }
                 else
                 {
