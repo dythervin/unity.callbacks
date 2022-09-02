@@ -14,6 +14,15 @@ namespace Dythervin.Callbacks
         {
             return GetCallbacks<ICallbacks, Inner.Callbacks>(gameObject);
         }
+        public static IParticleCallbacks GetParticleCallbacks(this Component component)
+        {
+            return GetParticleCallbacks(component.gameObject);
+        }
+
+        public static IParticleCallbacks GetParticleCallbacks(this GameObject gameObject)
+        {
+            return GetCallbacks<IParticleCallbacks, ParticleCallbacks>(gameObject);
+        }
 
         public static ITriggerCallbacks GetTriggerCallbacks(this Component component)
         {
