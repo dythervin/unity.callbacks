@@ -58,13 +58,13 @@ namespace Dythervin.Callbacks
                 try
                 {
                     playModeListener.OnEnterPlayMode();
-                    GameStartListeners.Remove(playModeListener);
                     GameStartListenersDone.Add(playModeListener);
                 }
                 catch (Exception e)
                 {
                     Debug.LogError($"Enter play mode: {e}");
                 }
+                GameStartListeners.Remove(playModeListener);
             }
 
             GameStartListeners.Lock(false);
