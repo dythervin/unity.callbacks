@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Dythervin.Collections;
 using Dythervin.Core;
 using Dythervin.Core.Utils;
-using Dythervin.Updater.Helpers;
+using Dythervin.Updaters.Helpers;
 using UnityEngine;
 
 namespace Dythervin.Callbacks
