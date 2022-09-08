@@ -15,7 +15,7 @@ namespace Dythervin.Callbacks
 
         private static readonly Updatable Updatable = new Updatable();
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Init()
         {
             Application.quitting += ApplicationOnQuitting;
