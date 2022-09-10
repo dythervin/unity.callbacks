@@ -52,7 +52,7 @@ namespace Dythervin.Callbacks
             GameStartListeners.Lock();
             foreach (IPlayModeListener playModeListener in GameStartListeners)
             {
-                if (GameStartListeners.ToRemove(playModeListener) || playModeListener is UnityEngine.Object obj && obj == null)
+                if (GameStartListeners.IsToRemove(playModeListener) || playModeListener is UnityEngine.Object obj && obj == null)
                     continue;
 
                 try
