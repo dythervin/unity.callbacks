@@ -44,6 +44,7 @@ namespace Dythervin.Callbacks
             return GetCallbacks<ITriggerStayCallback, TriggerStayCallback>(gameObject);
         }
 
+        // ReSharper disable Unity.PerformanceAnalysis
         private static TInterface GetCallbacks<TInterface, TComponent>(GameObject gameObject)
             where TComponent : Component, TInterface
         {
